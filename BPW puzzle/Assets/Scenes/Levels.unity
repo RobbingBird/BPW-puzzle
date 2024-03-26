@@ -346,8 +346,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 7
+  jumpKey: 32
   playerHeight: 2
   groundDrag: 5
+  jumpForce: 12
+  jumpCooldown: 0.25
+  airMultiplier: 0.4
   ground:
     serializedVersion: 2
     m_Bits: 64
