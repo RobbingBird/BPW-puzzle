@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RaycastFromCamera : MonoBehaviour
 {
@@ -10,8 +11,13 @@ public class RaycastFromCamera : MonoBehaviour
 
     private int orderNumber = 1;
     private int pressedButton;
+    private int doorClosed = 3;
 
-    private bool interactHit = false; 
+    private bool interactHit = false;
+
+    public GameObject door1;
+
+    public Image cursor;
 
     void Update()
     {
@@ -44,9 +50,26 @@ public class RaycastFromCamera : MonoBehaviour
                 {
                     orderNumber = 1;
                 }
+
+                if(orderNumber == 7 && doorClosed == 3)
+                {
+                    doorClosed -= 1;
+                    orderNumber = 1;
+
+                    door1.SetActive(false);
+                }
             }
 
             Debug.Log(orderNumber);
+        }
+
+        //make cursor bigger on raycast hit
+        if (Physics.Raycast(ray, out hit, interactionRange, interactions))
+        {
+            cursor.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
+        } else
+        {
+            cursor.transform.localScale = new Vector3(0.025f, 0.025f, 0.025f);
         }
     }
 }
