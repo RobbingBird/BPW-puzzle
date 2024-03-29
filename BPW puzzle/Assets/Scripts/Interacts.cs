@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Interacts : MonoBehaviour
@@ -30,6 +31,11 @@ public class Interacts : MonoBehaviour
 
     public Image cursor;
 
+    public AudioSource Click;
+    public AudioSource Wrong;
+    public AudioSource DoorOpen;
+
+
     void Update()
     {
         //interactDetection
@@ -54,6 +60,7 @@ public class Interacts : MonoBehaviour
                 else
                 {
                     orderNumber = 1;
+                    Wrong.Play();
                 }
 
                 if(orderNumber == 7 && doorClosed == 3)
@@ -61,11 +68,15 @@ public class Interacts : MonoBehaviour
                     doorClosed -= 1;
                     orderNumber = 1;
 
+                    DoorOpen.Play();
+
                     door1.SetActive(false);
                 } else if (orderNumber == 7 && doorClosed == 2)
                 {
                     doorClosed -= 1;
                     orderNumber = 1;
+
+                    DoorOpen.Play();
 
                     door2.SetActive(false);
                 } else if (orderNumber == 7 && doorClosed == 1)
@@ -73,7 +84,13 @@ public class Interacts : MonoBehaviour
                     doorClosed -= 1;
                     orderNumber = 1;
 
+                    DoorOpen.Play();
+
                     door3.SetActive(false);
+                    SceneManager.LoadScene(0);
+                } else
+                {
+                    Click.Play();
                 }
             }
 
@@ -84,11 +101,15 @@ public class Interacts : MonoBehaviour
             {
                 Window1.transform.localRotation = Quaternion.Euler(Window1.transform.localRotation.eulerAngles.x, Window1.transform.localRotation.eulerAngles.y, -Window1.transform.localRotation.eulerAngles.z);
                 Window2.transform.localRotation = Quaternion.Euler(Window2.transform.localRotation.eulerAngles.x, Window2.transform.localRotation.eulerAngles.y, -Window2.transform.localRotation.eulerAngles.z);
+
+                Click.Play();
             }
 
             //PortalSwitch detection
             if (hit.collider.gameObject.tag == "PortalSwitch" && interactHit == true)
             {
+                Click.Play();
+
                 if (hit.collider.gameObject.name == "W1")
                 {
                     Portal1.gameObject.SetActive(false);
