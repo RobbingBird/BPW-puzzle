@@ -16,6 +16,9 @@ public class RaycastFromCamera : MonoBehaviour
     private bool interactHit = false;
 
     public GameObject door1;
+    public GameObject door2;
+    public GameObject Window1;
+    public GameObject Window2;
 
     public Image cursor;
 
@@ -23,12 +26,6 @@ public class RaycastFromCamera : MonoBehaviour
     {
         //interactDetection
         interactHit = false;
-
-        if (mainCamera == null)
-        {
-            Debug.LogError("Main camera reference not set!");
-            return;
-        }
 
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
@@ -57,10 +54,23 @@ public class RaycastFromCamera : MonoBehaviour
                     orderNumber = 1;
 
                     door1.SetActive(false);
+                } else if (orderNumber == 7 && doorClosed == 2)
+                {
+                    doorClosed -= 1;
+                    orderNumber = 1;
+
+                    door2.SetActive(false);
                 }
             }
 
             Debug.Log(orderNumber);
+
+            //ModeSwitch detection
+            if (hit.collider.gameObject.tag == "ModeSwitch" && interactHit == true)
+            {
+                Window1.transform.localRotation = Quaternion.Euler(Window1.transform.localRotation.eulerAngles.x, Window1.transform.localRotation.eulerAngles.y, -Window1.transform.localRotation.eulerAngles.z);
+                Window2.transform.localRotation = Quaternion.Euler(Window2.transform.localRotation.eulerAngles.x, Window2.transform.localRotation.eulerAngles.y, -Window2.transform.localRotation.eulerAngles.z);
+            }
         }
 
         //make cursor bigger on raycast hit
