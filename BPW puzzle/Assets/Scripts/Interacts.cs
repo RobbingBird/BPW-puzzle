@@ -1,7 +1,8 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RaycastFromCamera : MonoBehaviour
+public class Interacts : MonoBehaviour
 {
     public Camera mainCamera;
 
@@ -17,8 +18,15 @@ public class RaycastFromCamera : MonoBehaviour
 
     public GameObject door1;
     public GameObject door2;
+    public GameObject door3;
     public GameObject Window1;
     public GameObject Window2;
+    public GameObject Portal1;
+    public GameObject Portal2;
+    public GameObject Portal3;
+    public GameObject Portal4;
+    public GameObject Portal5;
+    public GameObject Portal6;
 
     public Image cursor;
 
@@ -60,6 +68,12 @@ public class RaycastFromCamera : MonoBehaviour
                     orderNumber = 1;
 
                     door2.SetActive(false);
+                } else if (orderNumber == 7 && doorClosed == 1)
+                {
+                    doorClosed -= 1;
+                    orderNumber = 1;
+
+                    door3.SetActive(false);
                 }
             }
 
@@ -70,6 +84,48 @@ public class RaycastFromCamera : MonoBehaviour
             {
                 Window1.transform.localRotation = Quaternion.Euler(Window1.transform.localRotation.eulerAngles.x, Window1.transform.localRotation.eulerAngles.y, -Window1.transform.localRotation.eulerAngles.z);
                 Window2.transform.localRotation = Quaternion.Euler(Window2.transform.localRotation.eulerAngles.x, Window2.transform.localRotation.eulerAngles.y, -Window2.transform.localRotation.eulerAngles.z);
+            }
+
+            //PortalSwitch detection
+            if (hit.collider.gameObject.tag == "PortalSwitch" && interactHit == true)
+            {
+                if (hit.collider.gameObject.name == "W1")
+                {
+                    Portal1.gameObject.SetActive(false);
+
+                    Portal2.gameObject.SetActive(true);
+                    Portal3.gameObject.SetActive(true);
+                } else if (hit.collider.gameObject.name == "W2")
+                {
+                    Portal2.gameObject.SetActive(false);
+
+                    Portal3.gameObject.SetActive(true);
+                    Portal1.gameObject.SetActive(true);
+                } else if (hit.collider.gameObject.name == "W3")
+                {
+                    Portal3.gameObject.SetActive(false);
+
+                    Portal1.gameObject.SetActive(true);
+                    Portal2.gameObject.SetActive (true);
+                } else if (hit.collider.gameObject.name == "W4")
+                {
+                    Portal4.gameObject.SetActive(false);
+
+                    Portal5.gameObject.SetActive(true);
+                    Portal6.gameObject.SetActive(true);
+                } else if (hit.collider.gameObject.name == "W5")
+                {
+                    Portal5.gameObject.SetActive(false);
+
+                    Portal6.gameObject.SetActive(true);
+                    Portal4.gameObject.SetActive(true);
+                } else if (hit.collider.gameObject.name == "W6")
+                {
+                    Portal6.gameObject.SetActive(false);
+
+                    Portal4.gameObject.SetActive(true);
+                    Portal5.gameObject.SetActive(true);
+                }
             }
         }
 
