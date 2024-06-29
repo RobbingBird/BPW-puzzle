@@ -11,7 +11,7 @@ public class Interacts : MonoBehaviour
 
     public float interactionRange;
 
-    private int orderNumber = 1;
+    public int orderNumber = 1;
     private int pressedButton;
     private int doorClosed = 3;
 
